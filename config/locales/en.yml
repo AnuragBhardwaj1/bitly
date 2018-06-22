@@ -20,4 +20,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  link:
+    invalid_url: Invalid Url
+    success:
+      created: 'Success: Link created'
+      exist: 'Success: Link exists'
+    error:
+      invalid: 'Error: Invalid link'

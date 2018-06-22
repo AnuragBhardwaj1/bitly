@@ -8,7 +8,11 @@ class LinksController < ApplicationController
   end
 
   def create
-    @link.save
+    if @link.save
+      flash.now[:notice] = I18n.t(:created, scope: [:link, :success])
+    else
+      flash.now[:error] = @link.errors.full_messages.to_sentence
+    end
     render 'home/index'
   end
 
@@ -21,20 +25,23 @@ class LinksController < ApplicationController
   private
 
   def build_link
-    @link = Link.new(build_link_parms)
+    @link = Link.new(link_parms)
   end
 
-  def build_link_parms
+  def link_parms
     params.require(:link).permit(:long_link)
   end
 
   def find_link
-    @link = Link.find_by(long_link: build_link_parms[:long_link])
-    render 'home/index' if @link
+    @link = Link.find_by(long_link: link_parms[:long_link])
+    if @link
+      flash.now[:notice] = I18n.t(:exist, scope: [:link, :success])
+      render 'home/index'
+    end
   end
 
   def find_link_by_short_link
     @link = Link.find_by(short_link: params[:short_link])
-    redirect_to root_path, alert: 'Link not found' unless @link
+    redirect_to root_path, alert: I18n.t(:invalid, scope: [:link, :error]) unless @link
   end
 end

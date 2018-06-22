@@ -5,10 +5,10 @@
     <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%#= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
-    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= stylesheet_link_tag 'application' %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
-    </head>
+  </head>
   <body>
     <nav class="navbar navbar-inverse navbar-static-top">
       <div class="container">
@@ -28,11 +28,14 @@
       </div>
     </nav>
     <div class="container">
-      <% if  @link && @link.errors.messages.present? %>
-        <div class="alert alert-danger" role="alert">
-          <%= @link.errors.full_messages.to_sentence %>
+      <div class="row">
+        <div class="col-md-12">
+          <% flash.each do |key, value| %>
+            <div class='alert alert-<%= flash_class(key) %>'>
+            <%= value %></div>
+          <% end %>
         </div>
-      <% end %>
+      </div>
     </div>
     <%= yield %>
 

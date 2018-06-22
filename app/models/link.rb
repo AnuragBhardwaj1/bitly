@@ -4,7 +4,7 @@ class Link < ActiveRecord::Base
   EXTENDED_LENGTH = 10  # creating new hash using extended length for less collision probablity.
 
   validates :short_link, :long_link, presence: true
-  validates :short_link, uniqueness: true, allow_blank: true # every short hash is validated for uniqueness at application level and added unique index at db level for race condition.
+  validates :short_link, uniqueness: { case_sensitive: true }, allow_blank: true # every short hash is validated for uniqueness at application level and added unique index at db level for race condition.
   validate :long_link_format, on: :create
 
   before_validation :generate_short_link, :sanitize_long_link, on: :create
@@ -25,11 +25,11 @@ class Link < ActiveRecord::Base
 
   def long_link_format
     # doing a basic validation to check it does not include space.
-    errors.add(:base, "Invalid Url") if !((long_link =~ URI::regexp) || (long_link =~ /^\S+$/))
+    errors.add(:base, I18n.t(:invalid_url, scope: :link)) if !((long_link =~ URI::regexp) || (long_link =~ /^\S+$/))
   end
 
   def sanitize_long_link
     # basic sanitization: removing padded spacing
-    long_link.chomp! if long_link.present?
+    long_link.strip! if long_link.present?
   end
 end
