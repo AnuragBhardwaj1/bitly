@@ -9,7 +9,7 @@ class LinksController < ApplicationController
 
   def create
     if @link.save
-      flash.now[:notice] = I18n.t(:created, scope: [:link, :success])
+      flash.now[:notice] = I18n.t(:created, scope: %i[link success])
     else
       flash.now[:error] = @link.errors.full_messages.to_sentence
     end
@@ -35,13 +35,13 @@ class LinksController < ApplicationController
   def find_link
     @link = Link.find_by(long_link: link_parms[:long_link])
     if @link
-      flash.now[:notice] = I18n.t(:exist, scope: [:link, :success])
+      flash.now[:notice] = I18n.t(:exist, scope: %i[link success])
       render 'home/index'
     end
   end
 
   def find_link_by_short_link
     @link = Link.find_by(short_link: params[:short_link])
-    redirect_to root_path, alert: I18n.t(:invalid, scope: [:link, :error]) unless @link
+    redirect_to root_path, alert: I18n.t(:invalid, scope: %i[link error]) unless @link
   end
 end

@@ -12,19 +12,15 @@
 
 ActiveRecord::Schema.define(version: 20180619072849) do
 
-  create_table 'links', force: :cascade do |t|
-    t.text     'short_link'
-    t.text     'long_link'
-    t.datetime 'expiration_date'
-    t.integer  'user_id'
-    t.datetime 'created_at',      null: false
-    t.datetime 'updated_at',      null: false
+  create_table "links", force: :cascade do |t|
+    t.text     "short_link"
+    t.text     "long_link"
+    t.datetime "expiration_date"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
-  add_index 'links', ['created_at'], name: 'index_links_on_created_at'
-  add_index 'links', ['long_link'], name: 'index_links_on_long_link'
-  add_index 'links', ['short_link'], name: 'index_links_on_short_link'
-  add_index 'links', ['updated_at'], name: 'index_links_on_updated_at'
-  add_index 'links', ['user_id'], name: 'index_links_on_user_id'
+  add_index "links", ["long_link"], name: "index_links_on_long_link"
+  add_index "links", ["short_link"], name: "index_links_on_short_link", unique: true
 
 end

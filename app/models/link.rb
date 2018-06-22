@@ -1,10 +1,11 @@
-# This model store links: (column: [:short_link,n :long_link])
+# This model store links: (column: [:short_link, :long_link])
 class Link < ActiveRecord::Base
   DEFAULT_LENGTH = 6    # taking  default lenght to 6 as it can take 6*64 unique values, and if collision occurs,
   EXTENDED_LENGTH = 10  # creating new hash using extended length for less collision probablity.
 
   validates :short_link, :long_link, presence: true
-  validates :short_link, uniqueness: { case_sensitive: true }, allow_blank: true # every short hash is validated for uniqueness at application level and added unique index at db level for race condition.
+  # every short hash is validated for uniqueness at application level and added unique index at db level for race condition.
+  validates :short_link, uniqueness: { case_sensitive: true }, allow_blank: true
   validate :long_link_format, on: :create
 
   before_validation :generate_short_link, :sanitize_long_link, on: :create
