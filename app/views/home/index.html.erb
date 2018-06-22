@@ -1,0 +1,31 @@
+
+
+<div class="container">
+
+  <div class="starter-template" align="center">
+    <h1>Shorten your Urls</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <%= form_for  Link.new do |f| %>
+        <dir class="form-horizontal">
+          <div class="form-group-lg">
+            <div class="row">
+              <div class="col-md-10">
+                <%= f.text_field :long_link, class: "form-control input-lg", placeholder: "Paste a link to shorten it", required: true, type: :url %>
+              </div>
+              <div class="col-md-2">
+                <%= f.submit "shorten", class: 'form-control' %>
+              </div>
+            </div>
+          </div>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @link %>
+   <%= render partial: 'links/link', locals: { link: @link } %>
+  <% end %>
+
+</div><!-- /.container -->
