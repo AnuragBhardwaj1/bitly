@@ -27,7 +27,13 @@
         </ul>
       </div>
     </nav>
-
+    <div class="container">
+      <% if  @link && @link.errors.messages.present? %>
+        <div class="alert alert-danger" role="alert">
+          <%= @link.errors.full_messages.to_sentence %>
+        </div>
+      <% end %>
+    </div>
     <%= yield %>
 
   </body>

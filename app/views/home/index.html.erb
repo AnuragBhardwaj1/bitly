@@ -13,7 +13,7 @@
           <div class="form-group-lg">
             <div class="row">
               <div class="col-md-10">
-                <%= f.text_field :long_link, class: "form-control input-lg", placeholder: "Paste a link to shorten it", required: true, type: :url %>
+                <%= f.text_field :long_link, class: "form-control input-lg", placeholder: "Paste a link to shorten it", required: true %>
               </div>
               <div class="col-md-2">
                 <%= f.submit "shorten", class: 'form-control' %>
@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  <% if @link %>
+  <% if @link && @link.persisted? %>
    <%= render partial: 'links/link', locals: { link: @link } %>
   <% end %>
 

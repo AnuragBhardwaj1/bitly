@@ -29,7 +29,7 @@ class LinksController < ApplicationController
   end
 
   def find_link
-    @link = Link.find_by(long_link: params[:link][:long_link])
+    @link = Link.find_by(long_link: build_link_parms[:long_link])
     render 'home/index' if @link
   end
 

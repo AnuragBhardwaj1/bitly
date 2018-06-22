@@ -24,8 +24,8 @@ class Link < ActiveRecord::Base
   end
 
   def long_link_format
-    # doing a basic validation validation to check it does not include space.
-    (long_link =~ URI::regexp) || (long_link =~ /^\S+$/)
+    # doing a basic validation to check it does not include space.
+    errors.add(:base, "Invalid Url") if !((long_link =~ URI::regexp) || (long_link =~ /^\S+$/))
   end
 
   def sanitize_long_link
